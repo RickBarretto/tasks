@@ -1,18 +1,20 @@
 import ./{tasks}!
 
-createTempDir: routine [
-    |> 'echo {Creating dir}
-    |> 'mkdir {temp}
+routine 'greet [
+    |> 'echo {Initializing the routine...}
 ]
 
-removeTempDir: routine [
-    |> 'echo {Removing dir}
-    |> 'rmdir {temp}
+routine 'createTempDir [
+    |> 'echo {Creating dir...}
+]
+
+routine 'removeTempDir [
+    |> 'echo {Removing dir...}
 ]
 
 
-task 'test .requires: [createTempDir] .defer: [removeTempDir] [
-    |> 'echo {"Testing"}
-]
+task 'setup .requires: [greet] []
+
+task 'test .requires: [greet, setup, createTempDir] .defers: [removeTempDir] []
 
 executeTask 'test

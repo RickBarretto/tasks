@@ -1,31 +1,77 @@
-
+routines: #[]
 tasks: #[]
 
-routine: $[action :block][
-    function [] action
+section: $[name :string kind :literal][
+    decorators: #[
+        task:    #[hr: '=', bullet: ">>", name: upper name] 
+        routine: #[hr: '-', bullet: "*",  name: name] 
+    ]
+    
+    decorator: decorators\[kind] 
+    
+    hr: decorator\hr
+    bullet: decorator\bullet
+    name: decorator\name
+
+    display: ~"|bullet| |name|"
+    
+    print ""
+    print pad.with: hr "" (size display) + (inc size bullet) 
+    print display
+    print ""
+]
+
+define :routine [
+    init: constructor [name :literal :string action :block]
+    act: method [][
+        do \action
+    ]
+]
+
+define :task is :routine [
+    init: constructor [name :string :literal action :block requires :block defers :block]
+    
+    act: method [][
+        \callAuxiliary \requires
+        do \action
+        \callAuxiliary \defers
+    ]
+
+    callAuxiliary: method [procedures :block][
+        loop procedures [name][
+            name: to :string name
+            instance: null
+
+            if in? name keys routines [
+                section name 'routine
+                instance: routines\[name]
+            ]
+            if in? name keys tasks [
+                section name 'task
+                instance: tasks\[name]
+            ]
+
+            do -> instance\act
+        ]
+    ]
+]
+
+routine: $[name :literal :string action :block][
+    routines\[name]: to :routine [name action]
 ]
 
 task: $[name :literal :string action :block][
-    ; Requirements
-
     requires: (attr 'requires) ?? []
-    defered: (attr 'defer) ?? []
+    defers: (attr 'defers) ?? []
     ensure -> block? requires
-    ensure -> block? defered
+    ensure -> block? defers
 
-    ; appends the task
-    tasks\[name]: #[
-        requires: requires
-        defers: defered
-        action: action
-    ]
-
+    tasks\[name]: to :task [name action requires defers]
 ]
 
 executeTask: $[target :string :literal][
 
     exec: $[command :string :literal params :string :block][
-
         if literal? command -> command: to :string command
         if string? params -> params: @[params]
 
@@ -33,23 +79,7 @@ executeTask: $[target :string :literal][
     ]
     alias {|>} 'exec
 
-    targetTask: tasks\[target]
-    requires: targetTask\requires
-    defered: targetTask\defers
-    action: targetTask\action 
+    tsk: tasks\[target]
+    do -> tsk\act
 
-    loop requires 'fn [
-        fn: (var fn)
-        call fn []
-    ]
-
-    print ~"Executing |target|..."
-    do action
-
-    loop defered 'fn [
-        fn: (var fn)
-        call fn []
-    ]
-
-    print ~"Done!"
 ]
