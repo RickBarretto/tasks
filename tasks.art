@@ -9,27 +9,34 @@ task: $[name :literal :string action :block][
         if literal? command -> command: to :string command
         if string? params -> params: @[params]
 
-        execute.async.directly.args: params 
-            command
+        print execute.args: params command
     ]
     alias {|>} 'exec
 
     ; Requirements
 
     requires: (attr 'requires) ?? []
+    defered: (attr 'defer) ?? []
     ensure -> block? requires
+    ensure -> block? defered
+
+    ; running the task
+
+    if arg\0 <> to :string name -> return null
 
     loop requires 'routine [
         routine: (var routine)
         call routine []
     ]
 
-    ; running the task
+    print ~"Executing |name|..."
+    do action
 
-    if arg\0 = to :string name [
-        print ~"Executing |name|..."
-        do action
-        print ~"Done!\n"
+    loop defered 'routine [
+        routine: (var routine)
+        call routine []
     ]
+
+    print ~"Done!"
 
 ]

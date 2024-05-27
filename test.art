@@ -1,10 +1,16 @@
 import ./{tasks}!
 
 createTempDir: $[][
+    |> 'echo {Creating dir}
     |> 'mkdir {temp}
 ]
 
-task 'test .requires: [createTempDir] [
-    |> 'echo {"Testing"}
+removeTempDir: $[][
+    |> 'echo {Removing dir}
     |> 'rmdir {temp}
+]
+
+
+task 'test .requires: [createTempDir] .defer: [removeTempDir] [
+    |> 'echo {"Testing"}
 ]
