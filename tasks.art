@@ -1,10 +1,28 @@
 
+tasks: #[]
+
 routine: $[action :block][
     function [] action
 ]
 
-
 task: $[name :literal :string action :block][
+    ; Requirements
+
+    requires: (attr 'requires) ?? []
+    defered: (attr 'defer) ?? []
+    ensure -> block? requires
+    ensure -> block? defered
+
+    ; appends the task
+    tasks\[name]: #[
+        requires: requires
+        defers: defered
+        action: action
+    ]
+
+]
+
+executeTask: $[target :string :literal][
 
     exec: $[command :string :literal params :string :block][
 
@@ -15,23 +33,17 @@ task: $[name :literal :string action :block][
     ]
     alias {|>} 'exec
 
-    ; Requirements
-
-    requires: (attr 'requires) ?? []
-    defered: (attr 'defer) ?? []
-    ensure -> block? requires
-    ensure -> block? defered
-
-    ; running the task
-
-    if arg\0 <> to :string name -> return null
+    targetTask: tasks\[target]
+    requires: targetTask\requires
+    defered: targetTask\defers
+    action: targetTask\action 
 
     loop requires 'fn [
         fn: (var fn)
         call fn []
     ]
 
-    print ~"Executing |name|..."
+    print ~"Executing |target|..."
     do action
 
     loop defered 'fn [
@@ -40,5 +52,4 @@ task: $[name :literal :string action :block][
     ]
 
     print ~"Done!"
-
 ]

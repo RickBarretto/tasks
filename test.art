@@ -14,3 +14,5 @@ removeTempDir: routine [
 task 'test .requires: [createTempDir] .defer: [removeTempDir] [
     |> 'echo {"Testing"}
 ]
+
+executeTask 'test
