@@ -1,11 +1,11 @@
 import ./{tasks}!
 
-createTempDir: $[][
+createTempDir: routine [
     |> 'echo {Creating dir}
     |> 'mkdir {temp}
 ]
 
-removeTempDir: $[][
+removeTempDir: routine [
     |> 'echo {Removing dir}
     |> 'rmdir {temp}
 ]

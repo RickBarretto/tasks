@@ -1,5 +1,7 @@
 
-tasks: []
+routine: $[action :block][
+    function [] action
+]
 
 
 task: $[name :literal :string action :block][
@@ -24,17 +26,17 @@ task: $[name :literal :string action :block][
 
     if arg\0 <> to :string name -> return null
 
-    loop requires 'routine [
-        routine: (var routine)
-        call routine []
+    loop requires 'fn [
+        fn: (var fn)
+        call fn []
     ]
 
     print ~"Executing |name|..."
     do action
 
-    loop defered 'routine [
-        routine: (var routine)
-        call routine []
+    loop defered 'fn [
+        fn: (var fn)
+        call fn []
     ]
 
     print ~"Done!"
