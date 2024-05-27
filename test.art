@@ -1,0 +1,8 @@
+import ./{tasks}!
+
+
+task 'test [
+    |> 'mkdir {temp}
+    |> 'echo {"Testing"}
+    |> 'rmdir {temp}
+]

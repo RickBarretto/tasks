@@ -1,0 +1,27 @@
+
+tasks: []
+
+
+task: $[name :literal :string action :block][
+
+    ; defining internal functions
+
+    exec: $[command :string :literal params :string :block][
+
+        if literal? command -> command: to :string command
+        if string? params -> params: @[params]
+
+        execute.async.directly.args: params 
+            command
+    ]
+    alias {|>} 'exec
+
+    ; running the task
+
+    if arg\0 = to :string name [
+        print ~"Executing |name|..."
+        do action
+        print ~"Done!\n"
+    ]
+
+]
