@@ -1,8 +1,10 @@
 import ./{tasks}!
 
-
-task 'test [
+createTempDir: $[][
     |> 'mkdir {temp}
+]
+
+task 'test .requires: [createTempDir] [
     |> 'echo {"Testing"}
     |> 'rmdir {temp}
 ]

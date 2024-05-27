@@ -4,8 +4,6 @@ tasks: []
 
 task: $[name :literal :string action :block][
 
-    ; defining internal functions
-
     exec: $[command :string :literal params :string :block][
 
         if literal? command -> command: to :string command
@@ -15,6 +13,16 @@ task: $[name :literal :string action :block][
             command
     ]
     alias {|>} 'exec
+
+    ; Requirements
+
+    requires: (attr 'requires) ?? []
+    ensure -> block? requires
+
+    loop requires 'routine [
+        routine: (var routine)
+        call routine []
+    ]
 
     ; running the task
 
