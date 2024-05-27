@@ -1,0 +1,26 @@
+import ./{tasks}!
+
+routine 'test [
+    |> 'echo {Testing source code...}
+]
+
+task 'build .requires: [test] [
+    requirements: ["./src/example.c"]
+
+    directory "./bin"
+
+    file "./bin/example.exe" .as: 'f .requires: requirements [
+        |> 'gcc print <= ~{|join.with: " " f\requires| -o |f\file|}
+    ]
+
+]
+
+task 'run [
+    file "./bin/example.exe" .as: 'f -> execute f\file
+]
+
+task 'clean [
+    delete.directory ./"bin"
+]
+
+executeTask arg\0

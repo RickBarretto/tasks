@@ -69,6 +69,25 @@ task: $[name :literal :string action :block][
     tasks\[name]: to :task [name action requires defers]
 ]
 
+directory: $[path :string][
+    write.directory path null
+]
+
+file: $[filename :string action :block][
+    requires: (attr 'requires) ?? @[filename]
+    asAttr: (attr 'as) ?? 'f
+
+    ensure -> all? (map requires => exists?)
+
+    let asAttr #[
+        file: filename
+        requires: requires
+    ] 
+
+    do action
+
+]
+
 executeTask: $[target :string :literal][
 
     exec: $[command :string :literal params :string][
@@ -78,6 +97,8 @@ executeTask: $[target :string :literal][
     alias {|>} 'exec
 
     tsk: tasks\[target]
+    
+    section target 'task
     do -> tsk\act
 
 ]
