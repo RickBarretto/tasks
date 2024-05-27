@@ -71,11 +71,9 @@ task: $[name :literal :string action :block][
 
 executeTask: $[target :string :literal][
 
-    exec: $[command :string :literal params :string :block][
+    exec: $[command :string :literal params :string][
         if literal? command -> command: to :string command
-        if string? params -> params: @[params]
-
-        print execute.args: params command
+        print execute join.with: " " @[command params]
     ]
     alias {|>} 'exec
 
