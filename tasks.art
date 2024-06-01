@@ -90,7 +90,7 @@ file: $[filename :string action :block][
 
 ]
 
-executeTask: $[target :string :literal][
+runTask: $[target :string :literal][
     target: to :string target
     ensure.that: ~{Task "|target|" is defined. Did you mean: "|maximum keys tasks 'tk [jaro target tk]|"?}
         -> in? target keys tasks

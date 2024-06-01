@@ -36,4 +36,4 @@ task 'clean [
 ensure.that: "Argument needed for this script" 
     -> not? empty? arg
 
-executeTask arg\0
+runTask arg\0

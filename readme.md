@@ -133,7 +133,7 @@ Hello, from Arturo's tasks
 ## Documentation
 
 ### *Runner*
-- `executeTask: $[target :string :literal]`:
+- `runTask: $[target :string :literal]`:
     Runs the `target` task
 
 ### *Task Definition*
