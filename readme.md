@@ -67,7 +67,7 @@ arturo tasks.art
 > 
 >  ensure.that: "Argument needed for this script" 
 >      -> not? empty? arg
->  runTests arg\0
+>  runTask arg\0
 > ```
 
 ### The *tasks' definition* itself
@@ -99,9 +99,9 @@ task 'clean [
     delete.directory ./"tests/bin"
 ]
 
-executeTask 'build
-executeTask 'run
-executeTask 'clean
+runTask 'build
+runTask 'run
+runTask 'clean
 ```
 
 This will show you:
