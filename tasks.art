@@ -1,7 +1,7 @@
-routines: #[]
-tasks: #[]
+_routines: #[]
+_tasks: #[]
 
-section: $[name :string :literal kind :literal][
+_section: $[name :string :literal kind :literal][
     if literal? name -> name: to :string name
     
     decorators: #[
@@ -44,13 +44,13 @@ define :task is :routine [
             name: to :string name
             instance: null
 
-            if in? name keys routines [
-                section name 'routine
-                instance: routines\[name]
+            if in? name keys _routines [
+                _section name 'routine
+                instance: _routines\[name]
             ]
-            if in? name keys tasks [
-                section name 'task
-                instance: tasks\[name]
+            if in? name keys _tasks [
+                _section name 'task
+                instance: _tasks\[name]
             ]
 
             do -> instance\act
@@ -59,7 +59,7 @@ define :task is :routine [
 ]
 
 routine: $[name :literal :string action :block][
-    routines\[name]: to :routine [name action]
+    _routines\[name]: to :routine [name action]
 ]
 
 task: $[name :literal :string action :block][
@@ -68,7 +68,7 @@ task: $[name :literal :string action :block][
     ensure -> block? requires
     ensure -> block? defers
 
-    tasks\[name]: to :task [name action requires defers]
+    _tasks\[name]: to :task [name action requires defers]
 ]
 
 directory: $[path :string][
@@ -92,8 +92,8 @@ file: $[filename :string action :block][
 
 runTask: $[target :string :literal][
     target: to :string target
-    ensure.that: ~{Task "|target|" is defined. Did you mean: "|maximum keys tasks 'tk [jaro target tk]|"?}
-        -> in? target keys tasks
+    ensure.that: ~{Task "|target|" is defined. Did you mean: "|maximum keys _tasks 'tk [jaro target tk]|"?}
+        -> in? target keys _tasks
 
     exec: $[command :string :literal params :string][
         command: to :string command
@@ -101,15 +101,15 @@ runTask: $[target :string :literal][
     ]
     alias {|>} 'exec
 
-    tsk: tasks\[target]
+    tsk: _tasks\[target]
 
     loop (tsk\requires ++ tsk\defers) 'fn [
         fn: to :string fn
         ensure.that: ~{Task/Routine "|fn|" was defined.} 
-            -> or? in? fn keys tasks in? fn keys routines  
+            -> or? in? fn keys _tasks in? fn keys _routines  
     ]
     
-    section target 'task
+    _section target 'task
     do -> tsk\act
 
 ]
