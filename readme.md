@@ -147,8 +147,8 @@ Hello, from Arturo's tasks
         The required files to this file exist. If none is passed, the files depends on itself.
 - `exec $[command :string :literal params :string]`:
     Executes a command on shell.
-    alias: `|>`.
-    This function is only available into `action`s from `routine`s and `task`s.
+    - alias: `|>`.
+    - OBS.: This function is only available into `action`s from `routine`s and `task`s.
 - `routine: $[name :string :literal, action :block]`:
     Defines a `:routine` that executes an `action`.
 - `task: $[name :string :literal, action :block]`:
