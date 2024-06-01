@@ -5,21 +5,23 @@ _section: $[name :string :literal kind :literal][
     if literal? name -> name: to :string name
     
     decorators: #[
-        task:    #[hr: '=', bullet: ">>", name: upper name] 
-        routine: #[hr: '-', bullet: "*",  name: name] 
+        task:    #[hr: '=', bullet: "ミ", name: upper name] 
+        routine: #[hr: ' ', bullet: "〃",  name: name] 
     ]
     
     decorator: decorators\[kind] 
     
     hr: decorator\hr
     bullet: decorator\bullet
-    name: decorator\name
+    name: strip decorator\name
 
-    display: ~"|bullet| |name|"
+    display: ~"|bullet| |name| |bullet|" | pad.center.with: '~' (sub terminal\width 2)
+    divisor: "" | pad.center.with: hr terminal\width
     
     print ""
-    print pad.with: hr "" (size display) + (inc size bullet) 
+    print divisor
     print display
+    print divisor
     print ""
 ]
 
