@@ -1,7 +1,9 @@
 routines: #[]
 tasks: #[]
 
-section: $[name :string kind :literal][
+section: $[name :string :literal kind :literal][
+    if literal? name -> name: to :string name
+    
     decorators: #[
         task:    #[hr: '=', bullet: ">>", name: upper name] 
         routine: #[hr: '-', bullet: "*",  name: name] 
