@@ -1,0 +1,3 @@
+entry: {tasks}
+depends: []
+requires: [> 0.9.83]
