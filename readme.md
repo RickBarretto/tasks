@@ -50,7 +50,7 @@ import {tasks}!
 
 ; here goes the task definition
 
-executeTask "my-task"
+runTask "my-task"
 ```
 
 And then, runnning with:
