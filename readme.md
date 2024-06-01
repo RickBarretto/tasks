@@ -22,13 +22,18 @@
 
 ## At a Glance
 
-<!-- <p align="center">
+<p align="center">
 <img 
     alt="Running Tasks from terminal"
     width="720"
-    src="./docs/running tasks screenshot.png"
+    src="./docs/catting_tasks_screenshot.png"
 />
-</p> -->
+<img 
+    alt="Running Tasks from terminal"
+    width="720"
+    src="./docs/running_tasks_screenshot.png"
+/>
+</p>
 
 ## Trying Tasks
 
@@ -169,3 +174,6 @@ Hello, from Arturo's tasks
 > This happens due to the nature of Arturo (being kind-of concatenative).
 
 ---
+
+> Screenshot's wallpaper photo by <a href="https://unsplash.com/@nck?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Nick Scheerbart</a> on <a href="https://unsplash.com/photos/aerial-photography-of-hanging-bridge-near-trees-xFjAftU8lMY?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+  
