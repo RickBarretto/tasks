@@ -16,7 +16,7 @@ task 'build .requires: [test] [
 ]
 
 task 'run [
-    file "./bin/example.exe" .as: 'f -> execute f\file
+    file "./bin/example.exe" .as: 'f -> execute.directly f\file
 ]
 
 task 'clean [
