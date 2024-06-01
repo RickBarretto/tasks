@@ -23,4 +23,7 @@ task 'clean [
     delete.directory ./"bin"
 ]
 
+ensure.that: "Argument needed for this script" 
+    -> not? empty? arg
+
 executeTask arg\0

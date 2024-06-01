@@ -17,4 +17,7 @@ task 'setup .requires: [greet] []
 
 task 'test .requires: [greet, setup, createTempDir] .defers: [removeTempDir] []
 
-executeTask 'test
+ensure.that: "Argument needed for this script" 
+    -> not? empty? arg
+
+executeTask arg\0
