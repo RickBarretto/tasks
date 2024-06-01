@@ -1,0 +1,39 @@
+import ./{../tasks}!
+
+
+; -- -- ROUTINES -- -- 
+
+routine 'greet [
+    |> 'echo {Initializing the routine...}
+]
+
+routine 'createTempDir [
+    |> 'echo {Creating dir...}
+]
+
+routine 'removeTempDir [
+    |> 'echo {Removing dir...}
+]
+
+
+; -- -- TASKS -- --
+
+task 'setup .requires: [greet] [
+    |> 'echo {Setting up...}
+]
+
+
+task 'test .requires: [greet, setup, createTempDir] .defers: [removeTempDir] [
+    |> 'echo {Testing...}
+    |> 'echo {[PASSED] - I'm passing...}
+    |> 'echo {[FAILED] - I'm failing...}
+]
+
+
+; -- -- EXECUTION -- --
+
+
+ensure.that: "Argument needed for this script" 
+    -> not? empty? arg
+
+executeTask arg\0
