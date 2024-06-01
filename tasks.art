@@ -91,14 +91,23 @@ file: $[filename :string action :block][
 ]
 
 executeTask: $[target :string :literal][
+    target: to :string target
+    ensure.that: ~{Task "|target|" is defined. Did you mean: "|maximum keys tasks 'tk [jaro target tk]|"?}
+        -> in? target keys tasks
 
     exec: $[command :string :literal params :string][
-        if literal? command -> command: to :string command
+        command: to :string command
         print execute join.with: " " @[command params]
     ]
     alias {|>} 'exec
 
     tsk: tasks\[target]
+
+    loop (tsk\requires ++ tsk\defers) 'fn [
+        fn: to :string fn
+        ensure.that: ~{Task/Routine "|fn|" was defined.} 
+            -> or? in? fn keys tasks in? fn keys routines  
+    ]
     
     section target 'task
     do -> tsk\act
