@@ -182,6 +182,8 @@ Hello, from Arturo's tasks
   - [ ] Accept the `--help`flag for each task
 - [ ] Better error reporting
   - [ ] Avoid to use `ensure`, and throw a proper error
+- [ ] Bundle an executable, so you won't need the runner anymore
+- [ ] Pass arguments for the task
 
 ---
 
