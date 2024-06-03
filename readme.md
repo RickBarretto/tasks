@@ -173,6 +173,16 @@ Hello, from Arturo's tasks
 > Never import this lib as `.lean`, or this will break the current code.
 > This happens due to the nature of Arturo (being kind-of concatenative).
 
+
+## Roadmap
+
+- [ ] Help command
+  - [ ] Accept `--help` flag
+  - [ ] Add description for each task
+  - [ ] Accept the `--help`flag for each task
+- [ ] Better error reporting
+  - [ ] Avoid to use `ensure`, and throw a proper error
+
 ---
 
 > Screenshot's wallpaper photo by <a href="https://unsplash.com/@nck?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Nick Scheerbart</a> on <a href="https://unsplash.com/photos/aerial-photography-of-hanging-bridge-near-trees-xFjAftU8lMY?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
