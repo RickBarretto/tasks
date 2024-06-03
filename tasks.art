@@ -92,9 +92,21 @@ file: $[filename :string action :block][
 
 ]
 
+task 'help [
+    print "Available commands:"
+    print ""
+    loop keys _tasks 'command [
+        print "   * " ++ command
+    ]
+]
+
 runTask: $[target :string :literal][
     target: to :string target
-    ensure.that: ~{Task "|target|" is defined. Did you mean: "|maximum keys _tasks 'tk [jaro target tk]|"?}
+    ensure.that: join.with: "\n" @[
+        ~{Task "|target|" is defined.} 
+        ~{Did you mean: "|maximum keys _tasks 'tk [jaro target tk]|"?}
+         {Call the command "help" for more options}
+    ]
         -> in? target keys _tasks
 
     exec: $[command :string :literal params :string][
